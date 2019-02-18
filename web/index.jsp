@@ -7,18 +7,13 @@
 	<title>Insert title here</title>
 </head>
 <body>
-<%--<form style="margin-top: 20px;">--%>
-	<%--上传附件更新&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/tolist">上传</a>--%>
-<%--</form>--%>
-<div >
-	<%--<a href="a_res/index.html"><img src="img/1.png" alt="后台页面" style="height: 500px;width: 500px"></a>--%>
-	<%--<a href="pro2/index.html"><img src="img/img2.png" alt="后台页面" style="height: 500px;width: 500px"></a>--%>
-	<a href="home/index"><%--<img src="img/img3.png" alt="后台页面" style="height: 500px;width: 500px">--%>   页面跳转</a>
-
-	<form method="POST"  enctype="multipart/form-data" id="form1" action="/home/upload">
-	</form>
-	<button onclick="abc()">111111111111111111</button>
-</div>
+<%--<div >--%>
+	<ul>
+		<li style="height: 50px"><a href="home/index">网站主页</a></li>
+		<li style="height: 50px"><a href="home/houtai">登录页面</a></li>
+		<li style="height: 50px"><a href="home/details">产品详细</a></li>
+	</ul>
+<%--</div>--%>
 <script src="./a_res/js/jquery-1.11.1.min.js"></script>
 <script>
     function abc () {
