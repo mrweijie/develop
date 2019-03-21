@@ -9,20 +9,20 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
-    <!--处理@ResponseBody中的"Content-Type"的编码格式 -->
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
-        <property name="messageConverters">
-            <list>
-                <bean class = "org.springframework.http.converter.StringHttpMessageConverter">
-                    <property name = "supportedMediaTypes">
-                        <list>
-                            <value>text/html;charset=UTF-8</value>
-                        </list>
-                    </property>
-                </bean>
-            </list>
-        </property>
-    </bean>
+    <!--&lt;!&ndash;处理@ResponseBody中的"Content-Type"的编码格式 &ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >-->
+        <!--<property name="messageConverters">-->
+            <!--<list>-->
+                <!--<bean class = "org.springframework.http.converter.StringHttpMessageConverter">-->
+                    <!--<property name = "supportedMediaTypes">-->
+                        <!--<list>-->
+                            <!--<value>text/html;charset=UTF-8</value>-->
+                        <!--</list>-->
+                    <!--</property>-->
+                <!--</bean>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <!--1 引入属性文件，在配置中占位使用 -->
     <context:property-placeholder location="classpath*:db.properties" />
@@ -81,6 +81,11 @@
 
     <!-- 配置自动扫描的包 -->
     <context:component-scan base-package="cn"/>
+    <!-- 默认的注解映射的支持，
+    自动注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->
+    <mvc:annotation-driven />
+    <!-- 静态资源访问配置 -->
+    <mvc:default-servlet-handler />
 
     <!-- 配置视图解析器 如何把handler 方法返回值解析为实际的物理视图 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -98,4 +103,7 @@
             <bean class="interceptor.LoginInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
+
+    <!-- 对静态资源文件的访问 -->
+    <mvc:default-servlet-handler/>
 </beans>

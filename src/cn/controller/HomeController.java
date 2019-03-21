@@ -4,12 +4,10 @@
 package cn.controller;
 
 import cn.entity.Cake;
-import cn.entity.Parameters;
 import cn.service.BookService;
 import cn.util.TestReadAndWrite;
 import cn.util.Tools;
-import cn.weixin2.sdk.WXPay;
-import cn.weixin2.sdk.WXPayment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,17 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
 
 
+@SuppressWarnings("ALL")
 @Controller
 @RequestMapping(value = "/home")
 public class HomeController {
 
-	@Resource
+	@Autowired
 	BookService bookService;
 
 	@ResponseBody
@@ -92,6 +90,11 @@ public class HomeController {
 		System.out.println("jinlaile ");
 		TestReadAndWrite testReadAndWrite =new TestReadAndWrite();
 		testReadAndWrite.read(file);
+	}
+
+	@RequestMapping(value="/test")
+	public String test() {
+		return "controllerTest";
 	}
 
 	//微信小程序支付接口

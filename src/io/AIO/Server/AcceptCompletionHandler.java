@@ -1,4 +1,4 @@
-package stu_io.AIO.Server;
+package io.AIO.Server;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;

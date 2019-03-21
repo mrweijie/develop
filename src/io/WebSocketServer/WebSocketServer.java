@@ -1,4 +1,4 @@
-package stu_io.WebSocketServer;
+package io.WebSocketServer;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;

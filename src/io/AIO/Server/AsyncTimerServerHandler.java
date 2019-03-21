@@ -1,4 +1,4 @@
-package stu_io.AIO.Server;
+package io.AIO.Server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -1,6 +1,6 @@
-package stu_io;
+package io;
 
-import stu_io.NIO.TimeClientHandle;
+import io.NIO.TimeClientHandle;
 
 public class TimeClient {
     public static void main(String[] args) {

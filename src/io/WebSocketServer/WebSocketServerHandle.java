@@ -1,4 +1,4 @@
-package stu_io.WebSocketServer;
+package io.WebSocketServer;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

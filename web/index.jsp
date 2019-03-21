@@ -12,27 +12,30 @@
 		<li style="height: 50px"><a href="home/index">网站主页</a></li>
 		<li style="height: 50px"><a href="home/houtai">登录页面</a></li>
 		<li style="height: 50px"><a href="home/details">产品详细</a></li>
+		<li style="height: 50px"><a href="xuchang/page/indexpage">许昌烈士陵园</a></li>
+		<li style="height: 50px"><a href="nancydes/index.html">自己的纯前端网站</a></li>
+		<li style="height: 50px"><a href="home/test">后台测试页面</a></li>
 	</ul>
 <%--</div>--%>
 <script src="./a_res/js/jquery-1.11.1.min.js"></script>
 <script>
-    function abc () {
-        $.ajax({
-            url: "/home/list",
-            type: "GET",
-			data:{
-              name:"1111",
-			},
-            dataType : 'json',
-            success: function (data) {
-                alert("修改成功");
-				console.warn(data);
-            },
-            error: function () {
-                alert("修改失败");
-            }
-        });
-    };
+    // function abc () {
+    //     $.ajax({
+    //         url: "/book/getAll",
+    //         type: "GET",
+		// 	data:{
+    //           name:"1111",
+		// 	},
+    //         dataType : 'json',
+    //         success: function (data) {
+    //             alert("修改成功");
+		// 		console.warn(data);
+    //         },
+    //         error: function () {
+    //             alert("修改失败");
+    //         }
+    //     });
+    // };
 
 </script>
 </body>
