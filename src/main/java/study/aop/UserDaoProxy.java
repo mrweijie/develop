@@ -17,9 +17,4 @@ public class UserDaoProxy implements IUserDao{
         target.save();   // 执行目标对象的方法
         System.out.println("代理操作：提交事务...");
     }
-
-    @Override
-    public void find() {
-        target.find();
-    }
 }

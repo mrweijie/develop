@@ -9,6 +9,10 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
+
 public class DiscardServer {
     private int port;
 
@@ -46,11 +50,26 @@ public class DiscardServer {
     }
 
     public static void main(String[] args) throws Exception {
-        int port = 8080;
-        if (args.length > 0) {
-            port = Integer.parseInt(args[0]);
+//        int port = 8080;
+//        if (args.length > 0) {
+//            port = Integer.parseInt(args[0]);
+//        }
+//
+//        new DiscardServer(port).run();
+        ArrayList<String> a = new ArrayList(4);
+        a.add("1");
+        a.add("2");
+        a.add("3");
+        a.add("4");
+        ListIterator iterator1 = a.listIterator();
+        while (iterator1.hasNext()){
+            String aa = (String) iterator1.next();
+            System.out.println(aa);
+            if(aa.equals("2")){
+                iterator1.add("5");
+            }
         }
-
-        new DiscardServer(port).run();
+        System.out.println(a);
+        System.out.println(Math.max(1,2));
     }
 }

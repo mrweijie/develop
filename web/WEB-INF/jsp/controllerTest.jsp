@@ -13,6 +13,8 @@
 <body>
 显示
 <button onclick="getAll()" id="btn">aaa</button>
+
+<button onclick="client()">bbb</button>
 <table id="tab" style="width: 500px;">
     <tr>
         <th>id</th>
@@ -35,15 +37,15 @@
     // getAll();
     function getAll () {
         $.ajax({
-            url: "http://localhost:8080/admin/list",
+            url: "/book/getAll",
             type: "GET",
             success: function (data) {
-                // var tr = ""
-                // for(var a = 0;a < data.length;a++){
-                //     var date = formatDate(new Date(data[a].publishDate));
-                //     tr += "<tr><td style = 'text-align: center'>"+data[a].id+"</td><td style = 'text-align: center'>"+data[a].title+"</td><td style = 'text-align: center'>"+data[a].price+"</td><td style = 'text-align: center'>"+date+"</td></tr>";
-                // }
-                // $("#tab").append(tr);
+                var tr = ""
+                for(var a = 0;a < data.length;a++){
+                    var date = formatDate(new Date(data[a].publishDate));
+                    tr += "<tr><td style = 'text-align: center'>"+data[a].id+"</td><td style = 'text-align: center'>"+data[a].title+"</td><td style = 'text-align: center'>"+data[a].price+"</td><td style = 'text-align: center'>"+date+"</td></tr>";
+                }
+                $("#tab").append(tr);
                 console.log(data.data.list)
             },
             error: function () {
@@ -51,6 +53,19 @@
             }
         });
     };
+
+    function client () {
+        $.ajax({
+            url: "/book/client",
+            type: "GET",
+            success: function (data) {
+            },
+            error: function () {
+                alert("修改失败");
+            }
+        });
+    };
+
     function formatDate(now) {
         var year=now.getFullYear();
         var month=now.getMonth()+1;
