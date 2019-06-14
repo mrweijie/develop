@@ -1,0 +1,10 @@
+
+一、编译成class文件
+    javac XXX.java
+二、打包成jar包(多个class用空格隔开)
+    jar -cvf xxx.jar XXX.class
+
+注意：
+    1、编码格式编译javac -encoding utf-8 XXX.java
+    2、如果jar执行时显示"java运行jar命令提示没有主清单属性" ，用winrar进入在MANIFEST.MF中加入入口类, "Main-Class: gui"
+    3、如果用idea敲代码时记得把package去掉
