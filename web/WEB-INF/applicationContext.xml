@@ -100,7 +100,7 @@
         <mvc:interceptor>
             <!-- 需拦截的地址 -->
             <mvc:mapping path="/home/index" />
-            <bean class="main.java.interceptor.LoginInterceptor" />
+            <bean class="stu.java.interceptor.LoginInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 
