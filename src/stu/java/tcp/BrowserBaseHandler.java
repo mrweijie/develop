@@ -26,10 +26,15 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_0;
 public class BrowserBaseHandler extends SimpleChannelInboundHandler<Object> {
 
     private String channelsName;
-    private WebSocketServerHandshaker handshaker;//支持webSocket的类
+    /**
+     * 支持webSocket的类
+     */
+    private WebSocketServerHandshaker handshaker;
     private static final Logger logger = Logger.getLogger(BrowserBaseHandler.class.getName());
 
-    //构造方法里初始化
+    /**
+     *构造方法里初始化
+     */
     public BrowserBaseHandler(String channelName) {
         this.channelsName = channelName;
     }
@@ -42,10 +47,13 @@ public class BrowserBaseHandler extends SimpleChannelInboundHandler<Object> {
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
-        if (msg instanceof FullHttpRequest) // 传统的HTTP接入
+        // 传统的HTTP接入
+        if (msg instanceof FullHttpRequest) {
             handleHttpRequest(ctx, (FullHttpRequest) msg);
-        else if (msg instanceof WebSocketFrame) // WebSocket接入
+        }// WebSocket接入
+        else if (msg instanceof WebSocketFrame) {
             handleWebSocketFrame(ctx, (WebSocketFrame) msg);
+        }
     }
 
     /**
@@ -56,15 +64,16 @@ public class BrowserBaseHandler extends SimpleChannelInboundHandler<Object> {
 
         // 如果HTTP解码失败，或者是webSocket请求，返回HTTP异常
         if (!req.getDecoderResult().isSuccess() || (!"websocket".equals(req.headers().get("Upgrade")))) {
-            sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HTTP_1_0, BAD_REQUEST));//响应返回http版本和状态码，提示出错
+            //响应返回http版本和状态码，提示出错
+            sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HTTP_1_0, BAD_REQUEST));
             return;
         }
-        String local = getWebSocketLocation(req);//得到webSocket的启动路径
+        //得到webSocket的启动路径
+        String local = getWebSocketLocation(req);
         // 构造握手响应返回，本机测试
         WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(local, null, false);
         handshaker = wsFactory.newHandshaker(req);
         if (handshaker == null) {
-            //WebSocketServerHandshakerFactory.sendUnsupportedWebSocketVersionResponse(ctx.channel());
             WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
         } else {
             handshaker.handshake(ctx.channel(), req);

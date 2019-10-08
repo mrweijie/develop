@@ -1,6 +1,3 @@
-/*  · Author by  zhongweijie
- *      Date on 2018/05/11
- * */
 package cn.controller;
 
 import cn.entity.Cake;
@@ -21,6 +18,9 @@ import java.io.IOException;
 import java.util.*;
 
 
+/**
+ * @author zwj
+ */
 @SuppressWarnings("ALL")
 @Controller
 @RequestMapping(value = "/home")
@@ -33,7 +33,7 @@ public class HomeController {
 	@RequestMapping(value="/login")
 	public ModelAndView login(String username, String pwd) {
 		System.out.println("用户名和密码：====="+ username +"-----"+ pwd);
-		if(username != null && !username.equals("") && pwd != null && !"".equals(pwd)){
+		if(username != null && !"".equals(username) && pwd != null && !"".equals(pwd)){
 
 		}
 		ModelAndView modelAndView = new ModelAndView("redirect:/home/index");

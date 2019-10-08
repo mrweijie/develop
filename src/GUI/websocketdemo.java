@@ -25,7 +25,7 @@ public class websocketdemo extends JFrame {
     JPanel jpLeftUp = new JPanel();
     JPanel jpLeftDown = new JPanel();
 
-    JTextField ipText = new JTextField("ws://192.168.10.201:50003",20);
+    JTextField ipText = new JTextField("ws://192.168.10.201:6012",20);
     JTextArea sendText = new JTextArea("{\"type\":\"SZM\",\"action\":\"init\",\"model\":[{\"sceneId\":\"2\"}]}",10,25);
     public static JTextArea showText = new JTextArea("",1,1);
 
@@ -40,6 +40,8 @@ public class websocketdemo extends JFrame {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         websocketdemo d1 = new websocketdemo();
+
+
     }
 
     // 构造函数
@@ -78,7 +80,7 @@ public class websocketdemo extends JFrame {
         jpLeft.add(jpLeftUp);
         jpLeft.add(jpLeftDown);
 
-        this.setLayout(new GridLayout(1, 2));
+        this.setLayout(new GridLayout(2, 1));
         this.add(jpLeft);
         this.add(showText);
         JScrollPane scroll = new JScrollPane(showText);
@@ -102,6 +104,7 @@ public class websocketdemo extends JFrame {
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .channel(NioSocketChannel.class)
                     .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             ChannelPipeline p = socketChannel.pipeline();
                             p.addLast(new ChannelHandler[]{new HttpClientCodec(),
@@ -109,11 +112,11 @@ public class websocketdemo extends JFrame {
                             p.addLast("hookedHandler", new ClientHandler());
                         }
                     });
-            URI websocketURI = new URI(ipText.getText());
+            URI uri = new URI(ipText.getText());
             HttpHeaders httpHeaders = new DefaultHttpHeaders();
             //进行握手
-            WebSocketClientHandshaker handshaker = WebSocketClientHandshakerFactory.newHandshaker(websocketURI, WebSocketVersion.V13, (String)null, true,httpHeaders);
-            channel=boot.connect(websocketURI.getHost(),websocketURI.getPort()).sync().channel();
+            WebSocketClientHandshaker handshaker = WebSocketClientHandshakerFactory.newHandshaker(uri, WebSocketVersion.V13, (String)null, true,httpHeaders);
+            channel=boot.connect(uri.getHost(),uri.getPort()).sync().channel();
             ClientHandler handler = (ClientHandler)channel.pipeline().get("hookedHandler");
             handler.setHandshaker(handshaker);
             handshaker.handshake(channel);

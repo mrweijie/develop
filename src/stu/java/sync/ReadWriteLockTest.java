@@ -11,6 +11,7 @@ public class ReadWriteLockTest {
     public static void main(String[] args) {
         AtomicInteger a = new AtomicInteger();
         new Thread() {
+            @Override
             public void run() {
                 while(true) {
                     try {
@@ -24,6 +25,7 @@ public class ReadWriteLockTest {
             };
         }.start();
         new Thread() {
+            @Override
             public void run() {
                 boolean state = true;
                 while(true) {

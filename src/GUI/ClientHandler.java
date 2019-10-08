@@ -1,14 +1,18 @@
 package GUI;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 
+import javax.swing.*;
+
 public class ClientHandler extends SimpleChannelInboundHandler<Object> {
     WebSocketClientHandshaker handshaker;
     ChannelPromise handshakeFuture;
 
+    @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
         this.handshakeFuture = ctx.newPromise();
     }
@@ -33,6 +37,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object> {
         return this.handshakeFuture;
     }
 
+    @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 //        System.out.println("channelRead0  " + this.handshaker.isHandshakeComplete());
         Channel ch = ctx.channel();
@@ -64,6 +69,11 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object> {
             } else if (frame instanceof BinaryWebSocketFrame) {
                 BinaryWebSocketFrame binFrame = (BinaryWebSocketFrame) frame;
                 System.out.println("BinaryWebSocketFrame");
+                ByteBuf bf =binFrame.content();
+                byte[] byteArray = new byte[bf.capacity()];
+                bf.readBytes(byteArray);
+                String result = new String(byteArray);
+                System.out.println(result);
             } else if (frame instanceof PongWebSocketFrame) {
                 System.out.println("WebSocket Client received pong");
             } else if (frame instanceof CloseWebSocketFrame) {

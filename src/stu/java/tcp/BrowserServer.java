@@ -17,7 +17,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
  * @author IMajes
  * @date 2017-3-15
  */
-public class BrowserServer extends ServerBase {
+public class BrowserServer extends BaseServer {
 
     public String channelsName;
 
@@ -71,7 +71,8 @@ public class BrowserServer extends ServerBase {
      */
     @Override
     public void shutDownServer() {
-        if (fu.channel().isOpen() && fu.channel().isWritable())
+        if (fu.channel().isOpen() && fu.channel().isWritable()) {
             fu.channel().closeFuture();//这句是必须的
+        }
     }
 }

@@ -29,6 +29,7 @@ public class Game2048 extends JApplet {
     private LinkedList saveList = new LinkedList();
     private JButton goBackButton;
     KeyListener kl = new KeyListener() {
+        @Override
         public void keyPressed(KeyEvent e) {
             saveTheStep();
             goBackButton.setVisible(true);
@@ -76,9 +77,11 @@ public class Game2048 extends JApplet {
             //saveTheStep();
         }
 
+        @Override
         public void keyTyped(KeyEvent e) {
         }
 
+        @Override
         public void keyReleased(KeyEvent e) {
         }
     };
@@ -94,6 +97,7 @@ public class Game2048 extends JApplet {
             value = obj.value;
         }
 
+        @Override
         public boolean equals(Object inobj) {
             RectObject obj = (RectObject) inobj;
             if (obj.value == value) {
@@ -117,6 +121,7 @@ public class Game2048 extends JApplet {
         private int[] xindex = {SP, 2 * SP + WID, 3 * SP + 2 * WID, 4 * SP + 3 * WID};
         private int[] yindex = {SP, 2 * SP + WID, 3 * SP + 2 * WID, 4 * SP + 3 * WID};
 
+        @Override
         @SuppressWarnings("deprecation")
         public void paintComponent(Graphics g) {
             //background
@@ -164,6 +169,7 @@ public class Game2048 extends JApplet {
             //setOpaque(false);
         }
 
+        @Override
         @SuppressWarnings("deprecation")
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -183,6 +189,7 @@ public class Game2048 extends JApplet {
             //setOpaque(false);
         }
 
+        @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             Font font = new Font("TimesRoman", Font.BOLD, 80);
@@ -201,6 +208,7 @@ public class Game2048 extends JApplet {
             setSize(w, h);
         }
 
+        @Override
         @SuppressWarnings("unused")
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -216,6 +224,7 @@ public class Game2048 extends JApplet {
     }
 
     public class goBackListener implements ActionListener {
+        @Override
         @SuppressWarnings("rawtypes")
         public void actionPerformed(ActionEvent e) {
             if (saveList.size() == 0) {
@@ -241,6 +250,7 @@ public class Game2048 extends JApplet {
     }
 
     public class resetListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             refreshBest();
             for (int i = 0; i < 4; i++) {
@@ -256,6 +266,7 @@ public class Game2048 extends JApplet {
     }
 
     //the applet init
+    @Override
     public void init() {
         Container cp = getContentPane();
         cp.setLayout(null);
@@ -589,6 +600,7 @@ public class Game2048 extends JApplet {
         jb2.setOpaque(false);
         jb2.setFont(font);
         jb1.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 scoreLabel.setText("0");
                 myp.remove(jl);
@@ -602,6 +614,7 @@ public class Game2048 extends JApplet {
             }
         });
         jb2.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 refreshBest();
                 File f = new File("LASTRECORD");
@@ -630,6 +643,7 @@ public class Game2048 extends JApplet {
         jb2.setOpaque(false);
         jb2.setFont(font);
         jb1.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 myp.remove(jl);
                 myp.validate();
@@ -637,6 +651,7 @@ public class Game2048 extends JApplet {
             }
         });
         jb2.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 refreshBest();
                 System.exit(0);
@@ -729,6 +744,7 @@ public class Game2048 extends JApplet {
     public static void run(JApplet applet, int width, int height) {
         JFrame frame = new JFrame(title(applet));
         frame.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 refreshBest();
                 saveRecord();

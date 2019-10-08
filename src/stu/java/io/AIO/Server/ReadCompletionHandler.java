@@ -13,8 +13,9 @@ public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuf
     private AsynchronousSocketChannel channel;
 
     public ReadCompletionHandler(AsynchronousSocketChannel channel) {
-        if(this.channel ==null)
-        this.channel = channel;
+        if(this.channel ==null) {
+            this.channel = channel;
+        }
     }
 
     @Override
@@ -41,8 +42,9 @@ public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuf
             channel.write(writeBuffer, writeBuffer, new CompletionHandler<Integer, ByteBuffer>() {
                 @Override
                 public void completed(Integer result, ByteBuffer buffer) {
-                    if(buffer.hasRemaining())
-                        channel.write(buffer,buffer,this);
+                    if(buffer.hasRemaining()) {
+                        channel.write(buffer, buffer, this);
+                    }
                 }
 
                 @Override

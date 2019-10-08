@@ -10,6 +10,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     WebSocketClientHandshaker handshaker;
     ChannelPromise handshakeFuture;
 
+    @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
         this.handshakeFuture = ctx.newPromise();
     }
@@ -34,6 +35,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
         return this.handshakeFuture;
     }
 
+    @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 //        System.out.println("channelRead0  " + this.handshaker.isHandshakeComplete());
         Channel ch = ctx.channel();

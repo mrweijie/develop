@@ -22,10 +22,10 @@ public class TestReadAndWrite  {
     public void writer(String path, String fileName,String fileType) throws IOException {
         //创建工作文档对象
         Workbook wb = null;
-        if (fileType.equals("xls")) {
+        if ("xls".equals(fileType)) {
             wb = new HSSFWorkbook();
         }
-        else if(fileType.equals("xlsx"))
+        else if("xlsx".equals(fileType))
         {
             wb = new XSSFWorkbook();
         }
@@ -57,10 +57,10 @@ public class TestReadAndWrite  {
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
         InputStream stream = file.getInputStream();
         Workbook wb = null;
-        if (suffix.equals(".xls")) {
+        if (".xls".equals(suffix)) {
             wb = new HSSFWorkbook(stream);
         }
-        else if (suffix.equals(".xlsx")) {
+        else if (".xlsx".equals(suffix)) {
             wb = new XSSFWorkbook(stream);
         }
         else {
@@ -75,6 +75,8 @@ public class TestReadAndWrite  {
                         break;
                     case STRING:
                         System.out.print(cell.getStringCellValue()+"  ");
+                        break;
+                    default:
                         break;
                 }
             }

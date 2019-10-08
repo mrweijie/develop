@@ -63,11 +63,15 @@ public class Tools {
 
         hex = hex.replace(" ","");
 
-        if(hex.isEmpty()) return null;
-        char[] achar = hex.toCharArray();//把字符串转换为字符数组
-
-        int len = (hex.length() / 2);//每两个字符为一个byte，得到最终转换后的byte数组的长度
-        byte[] result = new byte[len];//声明一个byte数组
+        if(hex.isEmpty()){
+            return null;
+        }
+        //把字符串转换为字符数组
+        char[] achar = hex.toCharArray();
+        //每两个字符为一个byte，得到最终转换后的byte数组的长度
+        int len = (hex.length() / 2);
+        //声明一个byte数组
+        byte[] result = new byte[len];
 
         for (int i = 0; i < len; i++) {
             int pos = i * 2;
@@ -77,7 +81,9 @@ public class Tools {
     }
     private static int toByte(char c) {
         byte b = (byte) "0123456789ABCDEF".indexOf(c);
-        if(b == -1) b = (byte) "0123456789abcdef".indexOf(c);
+        if(b == -1) {
+            b = (byte) "0123456789abcdef".indexOf(c);
+        }
         return b;
     }
 
@@ -88,12 +94,14 @@ public class Tools {
     /**
      * 4个byte转换成为一个int数
      */
-    public static int toInt(byte[] ByteConverToInt) { //4个byte转化为一个int
-        if (ByteConverToInt.length != 4) return -1;
+    public static int toInt(byte[] bytes) { //4个byte转化为一个int
+        if (bytes.length != 4){
+            return -1;
+        }
         int iOutcome = 0;
         byte bLoop;
         for (int i = 0; i < 4; i++) {
-            bLoop = ByteConverToInt[i];
+            bLoop = bytes[i];
             iOutcome += (bLoop & 0xFF) << (8 * (3 - i));
         }
         return iOutcome;

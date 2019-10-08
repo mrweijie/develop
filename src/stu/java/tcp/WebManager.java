@@ -25,7 +25,7 @@ public class WebManager {
     /**
      * 服务端组
      */
-    volatile static Map<String, ServerBase> map = new HashMap<>();
+    volatile static Map<String, BaseServer> map = new HashMap<>();
     public static NioEventLoopGroup workerGroup = new NioEventLoopGroup();
     public static NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
 
@@ -64,8 +64,9 @@ public class WebManager {
      * 删除所有通道组
      */
     public static void clearAllChannels() {
-        for (Map.Entry<String, ChannelGroup> entity : channelGroupMap.entrySet())
+        for (Map.Entry<String, ChannelGroup> entity : channelGroupMap.entrySet()) {
             entity.getValue().close();
+        }
     }
 
     /**
@@ -88,9 +89,13 @@ public class WebManager {
      * @param channel 要删除的通道
      */
     public static void removeChannelGroup(String name, Channel channel) {
-        if (channel.isWritable() && channel.isOpen()) channel.closeFuture();
+        if (channel.isWritable() && channel.isOpen()){
+            channel.closeFuture();
+        }
         ChannelGroup channels = channelGroupMap.get(name);
-        if (channels.contains(channel)) channels.remove(channel);
+        if (channels.contains(channel)){
+            channels.remove(channel);
+        }
 
     }
 
@@ -111,8 +116,8 @@ public class WebManager {
      * 关闭webSocket
      */
     public static void closeAllWebSocket() {
-        for (Map.Entry<String, ServerBase> entity : map.entrySet()) {
-            ServerBase server = entity.getValue();
+        for (Map.Entry<String, BaseServer> entity : map.entrySet()) {
+            BaseServer server = entity.getValue();
             server.shutDownServer();
         }
         workerGroup.shutdownGracefully();

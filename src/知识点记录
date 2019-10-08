@@ -1,0 +1,27 @@
+1、什么时候用InputStream，什么时候用OutputStream?
+    in或out是相对内存来说的，如果是从硬盘加载数据到内存、网络中就是in ，把内存的数据记录到硬盘、网络都是用out。
+
+2、用dom窗口编译java，
+    一、编译成class文件
+        javac XXX.java
+    二、打包成jar包(多个class用空格隔开)
+        jar -cvf xxx.jar XXX.class
+
+    注意：
+        1、编码格式编译javac -encoding utf-8 XXX.java
+        2、如果jar执行时显示"java运行jar命令提示没有主清单属性" ，用winrar进入在MANIFEST.MF中加入入口类, "Main-Class: XXX"
+        3、如果用idea敲代码时记得把package去掉
+
+3、Buffer基本用法
+  使用Buffer去读取和写入数据时，通常要遵循以下4个步骤：
+
+  1、写入数据到Buffer中
+  2、调用 buffer.flip()
+  3、从Buffer中读取数据
+  4、调用 buffer.clear() 或 buffer.compact() 方法
+
+  将数据写入缓冲区时，缓冲区会跟踪你写入的数据量。一旦你需要从中读取数据时，你需要调用 flip() 方法，将缓冲区从写入模式切换成读取模式。在读取模式下，你可以读取到所有写入到缓冲区的数据。
+
+  一旦你读取到了所有的数据，你需要对缓冲区做一次清理（clear），让其为下一次写入数据做好准备。你可以采用以下两种方式：
+      一是调用 clear() 方法，
+      二是调用 compact() 方法。clear() 方法是对整个缓冲区做清理。compcat() 方法只是清理掉你已经读取过的数据，任何未读取过的数据会被移动到缓冲区的起始位置，新写入进来的数据将会放到这些未读取的数据后面。

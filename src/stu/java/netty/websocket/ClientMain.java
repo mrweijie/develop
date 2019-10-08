@@ -26,6 +26,7 @@ public class ClientMain {
                 .handler(new LoggingHandler(LogLevel.INFO))
                 .channel(NioSocketChannel.class)
                 .handler(new ChannelInitializer<SocketChannel>() {
+                    @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline p = socketChannel.pipeline();
                         p.addLast(new ChannelHandler[]{new HttpClientCodec(),
@@ -46,12 +47,14 @@ public class ClientMain {
         handler.handshakeFuture().sync();
 
         Thread text=new Thread(new Runnable() {
+            @Override
             public void run() {
                 int i=30;
                 while (i>0){
                     System.out.println("text send");
                     TextWebSocketFrame frame = new TextWebSocketFrame("我是文本");
                     channel.writeAndFlush(frame).addListener(new ChannelFutureListener() {
+                        @Override
                         public void operationComplete(ChannelFuture channelFuture) throws Exception {
                             if(channelFuture.isSuccess()){
                                 System.out.println("text send success");

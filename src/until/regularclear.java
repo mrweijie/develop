@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class regularclear {
     public static void main(String[] args) {
-        short [] ccitt_table= {(short)0x0000, (short)0x1021, (short)0x2042, (short)0x3063, (short)0x4084, (short)0x50A5, (short)0x60C6, (short)0x70E7,
+        short [] ccittTable= {(short)0x0000, (short)0x1021, (short)0x2042, (short)0x3063, (short)0x4084, (short)0x50A5, (short)0x60C6, (short)0x70E7,
                     (short)0x8108, (short)0x9129, (short)0xA14A, (short)0xB16B, (short)0xC18C, (short)0xD1AD, (short)0xE1CE, (short)0xF1EF,
                     (short)0x1231, (short)0x0210, (short)0x3273, (short)0x2252, (short)0x52B5, (short)0x4294, (short)0x72F7, (short)0x62D6,
                     (short)0x9339, (short)0x8318, (short)0xB37B, (short)0xA35A, (short)0xD3BD, (short)0xC39C, (short)0xF3FF, (short)0xE3DE,

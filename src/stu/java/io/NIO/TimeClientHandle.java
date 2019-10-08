@@ -97,7 +97,7 @@ public class TimeClientHandle implements Runnable{
                         //
                         key.cancel();
                         sc.close();
-                    }else
+                    }else{}
                         ;//读到0字节，忽略
                 }
             }
@@ -118,8 +118,8 @@ public class TimeClientHandle implements Runnable{
         writeBuffer.put(req);
         writeBuffer.flip();
         sc.write(writeBuffer);
-        if(!writeBuffer.hasRemaining())
+        if(!writeBuffer.hasRemaining()) {
             System.out.println("1111111111111");
-
+        }
     }
 }

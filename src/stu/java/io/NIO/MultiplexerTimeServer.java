@@ -70,8 +70,9 @@ public class MultiplexerTimeServer implements Runnable{
                     }catch (Exception e){
                         if(key != null){
                             key.cancel();
-                            if(key.channel() != null)
+                            if(key.channel() != null) {
                                 key.channel().close();
+                            }
                         }
                     }
                 }
@@ -83,12 +84,13 @@ public class MultiplexerTimeServer implements Runnable{
         }
 
         //多路复用器关闭后，所有注册在上面的Channel和Pipe等资源都会被主动去注册并关闭，所以不需要重复释放资源
-        if(selector != null)
+        if(selector != null) {
             try {
                 selector.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
     }
 
     private void handleInput(SelectionKey key) throws IOException{
@@ -126,7 +128,7 @@ public class MultiplexerTimeServer implements Runnable{
                     //
                     key.cancel();
                     sc.close();
-                }else
+                }else{}
                     ;//读到0字节，忽略
             }
         }

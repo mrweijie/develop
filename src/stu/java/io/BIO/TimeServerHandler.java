@@ -29,8 +29,9 @@ public class TimeServerHandler implements Runnable {
             String body = null;
             while(true){
                 body = in.readLine();
-                if(body == null)
+                if(body == null) {
                     break;
+                }
                 System.out.println("this time server receive order is :"+ body);
                 currenTime = "abc".equalsIgnoreCase(body) ? new Date(System.currentTimeMillis()).toString() : "error";
                 out.println(currenTime);

@@ -24,13 +24,13 @@ public class Login {
     public static void main(String[] args) {
         // 2.在主函数中实例化Login类的对象，然后用对象名调用初始化界面的方法。
         Login login = new Login();
-        login.initUI();
+        login.initUi();
     }
 
     /**
      * 1.初始化界面的方法。
      */
-    public void initUI() {
+    public void initUi() {
         // 3.在initUI方法中，实例化JFrame窗体容器组件类的对象。
         JFrame frame = new JFrame();
         // 4.设置窗体容器组件的属性值：标题、大小、显示位置、关闭操作、禁止调整组件大小、布局、可见。

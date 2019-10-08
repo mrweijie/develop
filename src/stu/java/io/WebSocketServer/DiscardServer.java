@@ -64,7 +64,7 @@ public class DiscardServer {
         while (iterator1.hasNext()){
             String aa = (String) iterator1.next();
             System.out.println(aa);
-            if(aa.equals("2")){
+            if("2".equals(aa)){
                 iterator1.add("5");
             }
         }
