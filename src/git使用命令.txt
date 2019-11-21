@@ -1,0 +1,44 @@
+分支
+
+查看分支：git branch
+
+创建分支：git branch <name>
+
+切换分支：git checkout <name>
+
+创建+切换分支：git checkout -b <name>
+
+合并某分支到当前分支：git merge <name>
+
+删除分支：git branch -d <name>
+
+
+
+查看当前状态：git status
+
+更新 git pull
+
+如果有冲突错误{
+	1、保留本地上的修改：git stash 或 git stash save "save message"
+	2、当前的Git栈信息: git stash list
+	3、保存完再更新一次：git pull
+	4、还原暂存的内容：git stash pop stash@{0} 或 git stash apply stash@{0}   
+	   （pop 把会把在stash 中的信息删除，apply 不会）
+	5、解决冲突
+	6、删除栈内信息：git stash drop stash@{0} 或 git  stash clear
+} 
+
+提交先提交：git commit
+然后再推到服务器：git push
+
+
+版本回退
+git log  #查看当前所有分支
+git reset --hard 版本号              # 回退到指定的commit
+git push origin HEAD --force            # 强制将代码推到服务器，--force使服务器不会拒绝这个更低版本的commit
+
+当你用$ git reset --hard HEAD^回退到以前版本时，再想恢复到现在的版本，就必须找到原本的commit id。
+Git提供了一个命令git reflog用来记录你的每一次命令：
+在里面可以找到之前的id。
+
+git diff --cached （在stash中取出修改的文件，使用git diff没有显示修改内容，在git status中有修改，用此命令能显示）
