@@ -70,13 +70,13 @@ public class test extends JFrame {
             切换按钮
          */
         p = new JPanel(); // 构造放按钮的JPanel
-        p.setLayout(new GridLayout(1,3));
+        p.setLayout(new GridLayout(3,1));
         b_1 = new JButton("主页");
         b_2 = new JButton("入库记录");
         b_3 = new JButton("出售记录");
-        b_1.setMargin(new Insets(1,20,1,20));
-        b_2.setMargin(new Insets(1,20,1,20));
-        b_3.setMargin(new Insets(1,20,1,20));
+        b_2.setMargin(new Insets(10,120,10,120));
+        b_3.setMargin(new Insets(10,120,10,120));
+        b_1.setMargin(new Insets(10,120,10,120));
         p.add(b_1);
         p.add(b_2);
         p.add(b_3);
@@ -120,7 +120,11 @@ public class test extends JFrame {
         p_3.setBackground(Color.GREEN);
         p_2.add(new JLabel("JPanel_2"));
         p_3.add(new JLabel("JPanel_3"));
-        pane.add(scp1, "p1");
+        JPanel a = new JPanel();
+        a.setLayout(new GridLayout(3,2));
+        a.add(new JButton("1111"));
+        a.add(scp1);
+        pane.add(a, "p1");
         pane.add(scp2, "p2");
         pane.add(scp3, "p3");
 

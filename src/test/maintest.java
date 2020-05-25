@@ -1,56 +1,38 @@
 package test;
 
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class maintest {
     public static void main(String[] args) {
-        int n = 15;
-        maintest maintest = new maintest();
-        for(int i = 0; i < n; i++){
-           new Thread(new myThread(i , n)).start();
-//            new Thread(new myThread2(i, n, 100)).start();
+        maintest a = new maintest();
+        List<Thread> list = new ArrayList<Thread>();
+        for (int i = 0; i < 50; i++) {
+            list.add(new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    a.SendString(Thread.currentThread().getName());
+                }
+            }));
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).start();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-
-}
-
-class myThread implements Runnable {
-    private static final Object LOCK = new Object();
-
-    public static int num = 0;
-
-    public int threadNo;
-
-    public int threadCout;
-
-    public myThread(int threadNo , int threadCout){
-        this.threadNo = threadNo;
-        this.threadCout = threadCout;
-    }
-
-    @Override
-    public void run() {
-        while (true){
-            synchronized (LOCK){
-                while (num % threadCout != threadNo){
-                    if(num > 100){
-                        break;
-                    }
-                    try {
-                        LOCK.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                // 最大值跳出循环
-                if (num > 100) {
-                    break;
-                }
-                System.out.println("Thread - "+ threadNo +" : "+num);
-                num++;
-                LOCK.notifyAll();
-            }
+    private  ReentrantLock lock = new ReentrantLock(true);
+    private void SendString(String value) {
+        try{
+            lock.lock();
+            System.out.println(value);
+        }finally {
+            lock.unlock();
         }
     }
 }
