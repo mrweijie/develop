@@ -3,7 +3,6 @@ import cn.entity.Backentity;
 import cn.entity.Book;
 import cn.service.BookService;
 import cn.util.Tools;
-import stu.java.tcp.TCPClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,6 @@ import java.util.Map;
 @RequestMapping(value = "/book")
 public class BookController {
 
-    private static volatile Map<String, TCPClient> abstractClientMap = new HashMap<>();
     @Autowired
     BookService bookService;
 
@@ -52,21 +50,21 @@ public class BookController {
         return "redirect:/home/test";
     }
 
-    @RequestMapping(value = "/client",method = {RequestMethod.GET})
-    public void client(HttpServletRequest req){
-        String ip = "192.168.10.195";
-        TCPClient client;
-        if(abstractClientMap.get(ip) != null){
-            client = abstractClientMap.get(ip);
-            client.sendString("222222");
-        }else{
-            System.out.println("进入");
-            client =new TCPClient(ip,50003);
-            client.connect();
-            client.sendString("111111111");
-            abstractClientMap.put(ip,client);
-        }
-    }
+//    @RequestMapping(value = "/client",method = {RequestMethod.GET})
+//    public void client(HttpServletRequest req){
+//        String ip = "192.168.10.195";
+//        TCPClient client;
+//        if(abstractClientMap.get(ip) != null){
+//            client = abstractClientMap.get(ip);
+//            client.sendString("222222");
+//        }else{
+//            System.out.println("进入");
+//            client =new TCPClient(ip,50003);
+//            client.connect();
+//            client.sendString("111111111");
+//            abstractClientMap.put(ip,client);
+//        }
+//    }
 
     @ResponseBody
     @RequestMapping(value="/getList",method = {RequestMethod.GET}, produces = "application/json;charset=UTF-8")

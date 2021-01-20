@@ -1,13 +1,11 @@
-package stu.java.tcp;
-
+package test.websocket;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
+
+import io.netty.channel.*;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.stream.ChunkedWriteHandler;
@@ -17,7 +15,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
  * @author IMajes
  * @date 2017-3-15
  */
-public class BrowserServer extends BaseServer {
+public class BrowserServer extends ServerBase {
 
     public String channelsName;
 
@@ -71,8 +69,7 @@ public class BrowserServer extends BaseServer {
      */
     @Override
     public void shutDownServer() {
-        if (fu.channel().isOpen() && fu.channel().isWritable()) {
+        if (fu.channel().isOpen() && fu.channel().isWritable())
             fu.channel().closeFuture();//这句是必须的
-        }
     }
 }

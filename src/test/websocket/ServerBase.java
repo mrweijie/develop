@@ -1,4 +1,4 @@
-package stu.java.tcp;
+package test.websocket;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -9,16 +9,11 @@ import io.netty.channel.socket.SocketChannel;
  * ChannelFutureListener，为特定的事项添加监听器。当事件发生时，会出发监听器指定相应的动作
  * @author IMajes
  */
-public abstract class BaseServer extends ChannelInitializer<SocketChannel> {
+public abstract class ServerBase extends ChannelInitializer<SocketChannel> {
 
-    /**
-     *服务绑定的端口
-     */
-    public int port;
-    /**
-     * ChannelFuture的作用是用来保存Channel异步操作的结果
-     */
-    public ChannelFuture fu;
+
+    public int port;//服务绑定的端口
+    public ChannelFuture fu;//ChannelFuture的作用是用来保存Channel异步操作的结果
 
     /**
      * 关闭websocket的服务<br>
@@ -31,7 +26,6 @@ public abstract class BaseServer extends ChannelInitializer<SocketChannel> {
      * 由子类实现该方法
      * @param socketChannel
      */
-    @Override
     public abstract void initChannel(SocketChannel socketChannel);
 
     /**
@@ -50,9 +44,7 @@ public abstract class BaseServer extends ChannelInitializer<SocketChannel> {
      */
     public void run(int port) throws InterruptedException {
         this.port=port;
-        if ((fu != null) && fu.channel().isOpen()){
-            shutDownServer();
-        }
+        if ((fu != null) && fu.channel().isOpen()) shutDownServer();
     }
 
     /**

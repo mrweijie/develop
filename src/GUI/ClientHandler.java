@@ -67,13 +67,13 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object> {
                 //this.listener.onMessage(textFrame.text());
 //                System.out.println("TextWebSocketFrame");
             } else if (frame instanceof BinaryWebSocketFrame) {
-                BinaryWebSocketFrame binFrame = (BinaryWebSocketFrame) frame;
-                System.out.println("BinaryWebSocketFrame");
-                ByteBuf bf =binFrame.content();
-                byte[] byteArray = new byte[bf.capacity()];
-                bf.readBytes(byteArray);
-                String result = new String(byteArray);
-                System.out.println(result);
+//                BinaryWebSocketFrame binFrame = (BinaryWebSocketFrame) frame;
+//                System.out.println("BinaryWebSocketFrame");
+//                ByteBuf bf =binFrame.content();
+//                byte[] byteArray = new byte[bf.capacity()];
+//                bf.readBytes(byteArray);
+//                String result = new String(byteArray);
+                System.out.println("二进制数据。。。");
             } else if (frame instanceof PongWebSocketFrame) {
                 System.out.println("WebSocket Client received pong");
             } else if (frame instanceof CloseWebSocketFrame) {

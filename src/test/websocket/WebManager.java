@@ -1,4 +1,4 @@
-package stu.java.tcp;
+package test.websocket;
 
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
@@ -25,14 +25,12 @@ public class WebManager {
     /**
      * 服务端组
      */
-    volatile static Map<String, BaseServer> map = new HashMap<>();
+    volatile static Map<String, ServerBase> map = new HashMap<>();
     public static NioEventLoopGroup workerGroup = new NioEventLoopGroup();
     public static NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
-
     public static void addChannel(String name,Channel ch){
         channelMap.put(name,ch);
     }
-
     public static void reChannel(String name){
         channelMap.remove(name);
     }
@@ -51,7 +49,6 @@ public class WebManager {
         }
         return group;
     }
-
     /**
      * 删除一个通道组
      */
@@ -59,7 +56,6 @@ public class WebManager {
         channelGroupMap.get(name).close();
         channelGroupMap.remove(name);
     }
-
     /**
      * 删除所有通道组
      */
@@ -68,7 +64,6 @@ public class WebManager {
             entity.getValue().close();
         }
     }
-
     /**
      * webSocket添加一个连接通道，当打开一个网页的时候就添加一个通道（连接）
      * @param name 用来找通道组
@@ -82,23 +77,20 @@ public class WebManager {
         }
         channels.add(channel);
     }
-
     /**
      * webSocket删除一个连接通道
      * @param name 用于找通道组
      * @param channel 要删除的通道
      */
     public static void removeChannelGroup(String name, Channel channel) {
-        if (channel.isWritable() && channel.isOpen()){
+        if (channel.isWritable() && channel.isOpen()) {
             channel.closeFuture();
         }
         ChannelGroup channels = channelGroupMap.get(name);
-        if (channels.contains(channel)){
+        if (channels.contains(channel)) {
             channels.remove(channel);
         }
-
     }
-
     /**
      * 得到连接浏览器的服务端实例
      * @return 浏览器的服务端
@@ -111,17 +103,15 @@ public class WebManager {
         }
         return bsServer;
     }
-
     /**
      * 关闭webSocket
      */
     public static void closeAllWebSocket() {
-        for (Map.Entry<String, BaseServer> entity : map.entrySet()) {
-            BaseServer server = entity.getValue();
+        for (Map.Entry<String, ServerBase> entity : map.entrySet()) {
+            ServerBase server = entity.getValue();
             server.shutDownServer();
         }
         workerGroup.shutdownGracefully();
         bossGroup.shutdownGracefully();
     }
-
 }

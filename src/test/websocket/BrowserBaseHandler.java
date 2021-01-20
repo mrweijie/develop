@@ -1,4 +1,4 @@
-package stu.java.tcp;
+package test.websocket;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -9,9 +9,9 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import static io.netty.handler.codec.http.HttpHeaders.Names.HOST;
 import static io.netty.handler.codec.http.HttpHeaders.isKeepAlive;
 import static io.netty.handler.codec.http.HttpHeaders.setContentLength;
@@ -26,15 +26,10 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_0;
 public class BrowserBaseHandler extends SimpleChannelInboundHandler<Object> {
 
     private String channelsName;
-    /**
-     * 支持webSocket的类
-     */
-    private WebSocketServerHandshaker handshaker;
+    private WebSocketServerHandshaker handshaker;//支持webSocket的类
     private static final Logger logger = Logger.getLogger(BrowserBaseHandler.class.getName());
 
-    /**
-     *构造方法里初始化
-     */
+    //构造方法里初始化
     public BrowserBaseHandler(String channelName) {
         this.channelsName = channelName;
     }
@@ -47,13 +42,10 @@ public class BrowserBaseHandler extends SimpleChannelInboundHandler<Object> {
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
-        // 传统的HTTP接入
-        if (msg instanceof FullHttpRequest) {
+        if (msg instanceof FullHttpRequest) // 传统的HTTP接入
             handleHttpRequest(ctx, (FullHttpRequest) msg);
-        }// WebSocket接入
-        else if (msg instanceof WebSocketFrame) {
+        else if (msg instanceof WebSocketFrame) // WebSocket接入
             handleWebSocketFrame(ctx, (WebSocketFrame) msg);
-        }
     }
 
     /**
@@ -64,16 +56,15 @@ public class BrowserBaseHandler extends SimpleChannelInboundHandler<Object> {
 
         // 如果HTTP解码失败，或者是webSocket请求，返回HTTP异常
         if (!req.getDecoderResult().isSuccess() || (!"websocket".equals(req.headers().get("Upgrade")))) {
-            //响应返回http版本和状态码，提示出错
-            sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HTTP_1_0, BAD_REQUEST));
+            sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HTTP_1_0, BAD_REQUEST));//响应返回http版本和状态码，提示出错
             return;
         }
-        //得到webSocket的启动路径
-        String local = getWebSocketLocation(req);
+        String local = getWebSocketLocation(req);//得到webSocket的启动路径
         // 构造握手响应返回，本机测试
         WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(local, null, false);
         handshaker = wsFactory.newHandshaker(req);
         if (handshaker == null) {
+            //WebSocketServerHandshakerFactory.sendUnsupportedWebSocketVersionResponse(ctx.channel());
             WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
         } else {
             handshaker.handshake(ctx.channel(), req);
@@ -93,6 +84,7 @@ public class BrowserBaseHandler extends SimpleChannelInboundHandler<Object> {
         }
         // 判断是否是Ping消息
         if (frame instanceof PingWebSocketFrame) {
+            System.out.println("11111111111111-----------");
             ctx.channel().write(new PongWebSocketFrame(frame.content().retain()));
             return;
         }
@@ -144,6 +136,7 @@ public class BrowserBaseHandler extends SimpleChannelInboundHandler<Object> {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+//        IMAJ.error();
         cause.printStackTrace();
         //TCPManager.getInstance().clearWebClient();//这里连接了设备的客户端不应该在此处受影响
         ctx.close();

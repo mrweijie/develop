@@ -25,7 +25,7 @@ public class websocketdemo extends JFrame {
     JPanel jpLeftUp = new JPanel();
     JPanel jpLeftDown = new JPanel();
 
-    JTextField ipText = new JTextField("ws://192.168.10.201:6012",20);
+    JTextField ipText = new JTextField("ws://192.168.10.125:5432",20);
     JTextArea sendText = new JTextArea("{\"type\":\"SZM\",\"action\":\"init\",\"model\":[{\"sceneId\":\"2\"}]}",10,25);
     public static JTextArea showText = new JTextArea("",1,1);
 
